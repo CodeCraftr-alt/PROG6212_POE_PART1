@@ -1,0 +1,43 @@
+name: Validate RaceDay Part 1
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+
+jobs:
+  validate-part1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        shell: bash
+        run: |
+          test -f docs/RaceDay_ERD.png
+          test -f docs/RaceDay_Endpoint_Plan.md
+          test -f docs/RaceDay.sql
+          echo "Required Part 1 files are present."
+
+      - name: Check SQL structure
+        shell: bash
+        run: |
+          grep -qi "CREATE TABLE dbo.Users" docs/RaceDay.sql
+          grep -qi "CREATE TABLE dbo.Categories" docs/RaceDay.sql
+          grep -qi "CREATE TABLE dbo.Routes" docs/RaceDay.sql
+          grep -qi "CREATE TABLE dbo.Events" docs/RaceDay.sql
+          grep -qi "CREATE TABLE dbo.Enrollments" docs/RaceDay.sql
+          grep -qi "CREATE TABLE dbo.Results" docs/RaceDay.sql
+          echo "Main SQL tables found."
+
+      - name: Check endpoint plan
+        shell: bash
+        run: |
+          grep -q "/api/auth/register" docs/RaceDay_Endpoint_Plan.md
+          grep -q "/api/auth/login" docs/RaceDay_Endpoint_Plan.md
+          grep -q "/api/events" docs/RaceDay_Endpoint_Plan.md
+          grep -q "/api/categories" docs/RaceDay_Endpoint_Plan.md
+          grep -q "/api/enrolments" docs/RaceDay_Endpoint_Plan.md
+          grep -q "/api/results" docs/RaceDay_Endpoint_Plan.md
+          echo "Required API areas found."
