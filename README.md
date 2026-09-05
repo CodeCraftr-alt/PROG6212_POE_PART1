@@ -36,7 +36,8 @@ The workflow checks that the required `docs` files exist and that the SQL file c
 
 ## Video
 
-Add the unlisted YouTube walkthrough link here before submitting:
+The unlisted YouTube walkthrough link here before submitting:
+'https://youtu.be/_kNNX9_xbts'
 
 
 
